@@ -6,17 +6,25 @@ var cardEl = document.getElementsByClassName("card");
 createButtonEl.addEventListener("click", insertCard);
 
 function insertCard() {
-  outputEl.innerHTML += "<div class='card'>" + 
-    '<input type="color" name="colorPicker" class="bgPicker" value="#FF0000">' +
-    '<input type="color" name="colorPicker" class="fontColorPicker" value="#FF0000">' +
-    '<input type="button" value="Delete" class="deleteButton">' +
-    '<p>' + textEl.value + '</p>' +
-    '</div>';
+  var newNode = document.createElement('div');
+
+  var outputHTML = "<div class='card'>";
+  outputHTML += '<input type="color" name="colorPicker" class="bgPicker" value="#FF0000">';
+  outputHTML += '<input type="color" name="colorPicker" class="fontColorPicker" value="#FF0000">';
+  outputHTML += '<input type="button" value="Delete" class="deleteButton">';
+  outputHTML += '<p>' + textEl.value + '</p>' + '</div>';
+
+  newNode.innerHTML = outputHTML;
+
+  while (newNode.firstChild){
+    outputEl.appendChild(newNode.firstChild);
+  }
 
   var bgPickerEl = document.getElementsByClassName("bgPicker");
-  for (var i = 0; i < bgPickerEl.length; i++) {
-    bgPickerEl[i].addEventListener("change", changeBg, false);
-  }
+  bgPickerEl[bgPickerEl.length-1].addEventListener("change", changeBg);
+
+  var fontColorPickerEl = document.getElementsByClassName("fontColorPicker");
+  fontColorPickerEl[fontColorPickerEl.length-1].addEventListener("change", changeTextColor);
 
   var cardDeleteEl = document.getElementsByClassName("deleteButton");
   for (var i = 0; i < cardDeleteEl.length; i++) {
@@ -27,8 +35,13 @@ function insertCard() {
 function changeBg() {
   var newColor = event.target.value;
   event.target.parentElement.style.backgroundColor = newColor;
-  
 }
+
+function changeTextColor() {
+  var newColor = event.target.value;
+  event.target.parentElement.style.color = newColor;
+}
+
 
 function deleteCard() {
   event.target.parentElement.remove();
