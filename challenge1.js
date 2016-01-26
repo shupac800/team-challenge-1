@@ -9,7 +9,9 @@ function insertCard() {
   var newNode = document.createElement('div');
 
   var outputHTML = "<div class='card'>";
+  outputHTML += '<label for="bgPicker">Background:</label>';
   outputHTML += '<input type="color" name="colorPicker" class="bgPicker" value="#FF0000">';
+  outputHTML += '<label for=fontColorPicker>Font:</label>';
   outputHTML += '<input type="color" name="colorPicker" class="fontColorPicker" value="#FF0000">';
   outputHTML += '<input type="button" value="Delete" class="deleteButton">';
   outputHTML += '<p>' + textEl.value + '</p>' + '</div>';
